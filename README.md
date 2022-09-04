@@ -18,7 +18,7 @@ Using MFC to create a BlackJack game platform
 1.	Download Visual Studio 2017 or newer versions
 2.	Check on the option of "x86 and x64 version of C++ MFC"
 3.	Install
-4.	Open MatchTool.vcxproj
+4.	Open BlackJack.vcxproj
 5.	Upgrade if it is required
 6.	Open this project's property page
 7.	Choose the SDK version you have in "General-Windows SDK Version"
