@@ -62,14 +62,14 @@ Point2f vecLT2RT = PLAYER_CARD1_RT - PLAYER_CARD1_LT;
 Point2f vecLB2RB = PLAYER_CARD1_RB - PLAYER_CARD1_LB;
 for (int i = 1; i < 20; i++)
 {
-		Mat matShow = m_matShow.clone ();
-		m_ptsPlayerOne[0] = PLAYER_CARD1_LT + vecLT2RT / 40 * i;//LT
-		m_ptsPlayerOne[1] = PLAYER_CARD1_RT - vecLT2RT / 40 * i;//RT
-		m_ptsPlayerOne[2] = PLAYER_CARD1_LB + vecLT2RT / 40 * i;//LB
-		m_ptsPlayerOne[3] = PLAYER_CARD1_RB - vecLT2RT / 40 * i;//RB
-		Mat matAction = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerOne);
-		warpPerspective (m_matHoleCard, matShow, matAction, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		string s = format ("C:\\users\\user\\Downloads\\%d.jpg", i);
-	  imwrite (s, matShow (rect));
+	Mat matShow = m_matShow.clone ();
+	m_ptsPlayerOne[0] = PLAYER_CARD1_LT + vecLT2RT / 40 * i;//LT
+	m_ptsPlayerOne[1] = PLAYER_CARD1_RT - vecLT2RT / 40 * i;//RT
+	m_ptsPlayerOne[2] = PLAYER_CARD1_LB + vecLT2RT / 40 * i;//LB
+	m_ptsPlayerOne[3] = PLAYER_CARD1_RB - vecLT2RT / 40 * i;//RB
+	Mat matAction = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerOne);
+	warpPerspective (m_matHoleCard, matShow, matAction, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+	string s = format ("C:\\users\\user\\Downloads\\%d.jpg", i);
+	imwrite (s, matShow (rect));
 }
 ```
