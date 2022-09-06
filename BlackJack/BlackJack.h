@@ -1,5 +1,5 @@
 ﻿
-// OpenCVView.h: PROJECT_NAME 應用程式的主要標頭檔
+// BlackJack.h: PROJECT_NAME 應用程式的主要標頭檔
 //
 
 #pragma once
@@ -11,14 +11,14 @@
 #include "resource.h"		// 主要符號
 
 
-// COpenCVViewApp:
-// 查看 OpenCVView.cpp 以了解此類別的實作
+// CBlackJackApp:
+// 查看 BlackJack.cpp 以了解此類別的實作
 //
 
-class COpenCVViewApp : public CWinApp
+class CBlackJackApp : public CWinApp
 {
 public:
-	COpenCVViewApp();
+	CBlackJackApp();
 
 // 覆寫
 public:
@@ -29,4 +29,4 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern COpenCVViewApp theApp;
+extern CBlackJackApp theApp;

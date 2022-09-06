@@ -1,5 +1,5 @@
 ﻿
-// OpenCVView.cpp: 定義應用程式的類別表現方式。
+// BlackJack.cpp: 定義應用程式的類別表現方式。
 //
 
 #include "pch.h"
@@ -12,16 +12,16 @@
 #endif
 
 
-// COpenCVViewApp
+// CBlackJackApp
 
-BEGIN_MESSAGE_MAP(COpenCVViewApp, CWinApp)
+BEGIN_MESSAGE_MAP(CBlackJackApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
 
-// COpenCVViewApp 建構
+// CBlackJackApp 建構
 
-COpenCVViewApp::COpenCVViewApp()
+CBlackJackApp::CBlackJackApp()
 {
 	// 支援重新啟動管理員
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
@@ -31,14 +31,14 @@ COpenCVViewApp::COpenCVViewApp()
 }
 
 
-// 唯一一個 COpenCVViewApp 物件
+// 唯一一個 CBlackJackApp 物件
 
-COpenCVViewApp theApp;
+CBlackJackApp theApp;
 
 
-// COpenCVViewApp 初始化
+// CBlackJackApp 初始化
 
-BOOL COpenCVViewApp::InitInstance()
+BOOL CBlackJackApp::InitInstance()
 {
 	// 假如應用程式資訊清單指定使用 ComCtl32.dll 6 (含) 以後版本，
 	// 來啟動視覺化樣式，在 Windows XP 上，則需要 InitCommonControls()。
@@ -71,7 +71,7 @@ BOOL COpenCVViewApp::InitInstance()
 	// (例如，公司名稱或組織名稱)
 	SetRegistryKey(_T("本機 AppWizard 所產生的應用程式"));
 
-	COpenCVViewDlg dlg;
+	CBlackJackDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)

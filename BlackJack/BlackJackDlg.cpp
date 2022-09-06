@@ -1,5 +1,5 @@
 ﻿
-// OpenCVViewDlg.cpp: 實作檔案
+// BlackJackDlg.cpp: 實作檔案
 //
 
 #include "pch.h"
@@ -14,6 +14,10 @@
 
 #define BANKER_POINT_POS Point (800, 60)
 #define PLAYER_POINT_POS Point (800, 400)
+#define PLAYER_CARD1_LT Point2f (144, 223)
+#define PLAYER_CARD1_RT Point2f (211, 254)
+#define PLAYER_CARD1_LB Point2f (102, 313)
+#define PLAYER_CARD1_RB Point2f (169, 344)
 // 對 App About 使用 CAboutDlg 對話方塊
 
 class CAboutDlg : public CDialogEx
@@ -47,12 +51,12 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// COpenCVViewDlg 對話方塊
+// CBlackJackDlg 對話方塊
 
 
 
-COpenCVViewDlg::COpenCVViewDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_OPENCVVIEW_DIALOG, pParent)
+CBlackJackDlg::CBlackJackDlg(CWnd* pParent /*=nullptr*/)
+	: CDialogEx(IDD_BlackJack_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	clrString = Scalar(255,255,255);
@@ -83,7 +87,7 @@ COpenCVViewDlg::COpenCVViewDlg(CWnd* pParent /*=nullptr*/)
 	clrRed = Scalar (0, 0, 255);
 }
 
-void COpenCVViewDlg::DoDataExchange(CDataExchange* pDX)
+void CBlackJackDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange (pDX);
 	DDX_Control (pDX, IDC_BUTTON_DEAL, m_btnDeal);
@@ -96,24 +100,24 @@ void COpenCVViewDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control (pDX, IDC_BUTTON_SHOW_STATUS, m_btnShowStatus);
 }
 
-BEGIN_MESSAGE_MAP(COpenCVViewDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CBlackJackDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED (IDC_BUTTON_DEAL, &COpenCVViewDlg::OnBnClickedButtonDeal)
-	ON_BN_CLICKED (IDC_BUTTON_HIT, &COpenCVViewDlg::OnBnClickedButtonHit)
-	ON_BN_CLICKED (IDC_BUTTON_STAND, &COpenCVViewDlg::OnBnClickedButtonStand)
-	ON_BN_CLICKED (IDC_BUTTON_100, &COpenCVViewDlg::OnBnClickedButton100)
+	ON_BN_CLICKED (IDC_BUTTON_DEAL, &CBlackJackDlg::OnBnClickedButtonDeal)
+	ON_BN_CLICKED (IDC_BUTTON_HIT, &CBlackJackDlg::OnBnClickedButtonHit)
+	ON_BN_CLICKED (IDC_BUTTON_STAND, &CBlackJackDlg::OnBnClickedButtonStand)
+	ON_BN_CLICKED (IDC_BUTTON_100, &CBlackJackDlg::OnBnClickedButton100)
 	ON_WM_ERASEBKGND ()
-	ON_BN_CLICKED (IDC_BUTTON_1000, &COpenCVViewDlg::OnBnClickedButton1000)
-	ON_BN_CLICKED (IDC_BUTTON_5000, &COpenCVViewDlg::OnBnClickedButton5000)
-	ON_BN_CLICKED (IDC_BUTTON_DOUBLE, &COpenCVViewDlg::OnBnClickedButtonDouble)
+	ON_BN_CLICKED (IDC_BUTTON_1000, &CBlackJackDlg::OnBnClickedButton1000)
+	ON_BN_CLICKED (IDC_BUTTON_5000, &CBlackJackDlg::OnBnClickedButton5000)
+	ON_BN_CLICKED (IDC_BUTTON_DOUBLE, &CBlackJackDlg::OnBnClickedButtonDouble)
 END_MESSAGE_MAP()
 
 
-// COpenCVViewDlg 訊息處理常式
+// CBlackJackDlg 訊息處理常式
 
-BOOL COpenCVViewDlg::OnInitDialog()
+BOOL CBlackJackDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
@@ -149,9 +153,6 @@ BOOL COpenCVViewDlg::OnInitDialog()
 
 	//讀取牌桌圖檔
 	m_matTableTop = imread ("res\\table top.jpg");
-	
-	//設定透視投影點
-	SetPerspectivePoint ();
 
 	//複製一份牌桌的原圖，避免原牌桌圖遭到修改，以便restart時重新讀取
 	m_matShow = m_matTableTop.clone ();
@@ -176,6 +177,9 @@ BOOL COpenCVViewDlg::OnInitDialog()
 	for (size_t i = 0; i < CARD_NUMBER; i++)
 		resize (m_matCard[i], m_matCard[i], m_matTableTop.size ());
 	resize (m_matHoleCard, m_matHoleCard, m_matTableTop.size ());
+
+	//設定透視投影點
+	SetPerspectivePoint ();
 	//籌碼
 	m_btn100.SetBitmaps (IDB_BITMAP_100, RGB (0, 128, 0));
 	m_btn100.DrawBorder (FALSE);
@@ -208,7 +212,7 @@ BOOL COpenCVViewDlg::OnInitDialog()
 	return TRUE;  // 傳回 TRUE，除非您對控制項設定焦點
 }
 
-void COpenCVViewDlg::OnSysCommand(UINT nID, LPARAM lParam)
+void CBlackJackDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
 	{
@@ -225,7 +229,7 @@ void COpenCVViewDlg::OnSysCommand(UINT nID, LPARAM lParam)
 // 以便繪製圖示。對於使用文件/檢視模式的 MFC 應用程式，
 // 框架會自動完成此作業。
 
-void COpenCVViewDlg::OnPaint()
+void CBlackJackDlg::OnPaint()
 {
 	CPaintDC dc (this); // 繪製的裝置內容
 	if (IsIconic())
@@ -270,14 +274,14 @@ void COpenCVViewDlg::OnPaint()
 
 // 當使用者拖曳最小化視窗時，
 // 系統呼叫這個功能取得游標顯示。
-HCURSOR COpenCVViewDlg::OnQueryDragIcon()
+HCURSOR CBlackJackDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
 
 
-void COpenCVViewDlg::OnBnClickedButtonDeal ()
+void CBlackJackDlg::OnBnClickedButtonDeal ()
 {
 	EnableFourButtons (0, 0, 0, 0);
 	srand ((unsigned int)time (NULL));
@@ -420,7 +424,7 @@ void COpenCVViewDlg::OnBnClickedButtonDeal ()
 	}
 }
 
-void COpenCVViewDlg::OnBnClickedButtonHit ()
+void CBlackJackDlg::OnBnClickedButtonHit ()
 {
 	//EnableFourButtons (0, 0, 0, 0);
 	srand ((unsigned int)time (NULL));
@@ -512,7 +516,7 @@ void COpenCVViewDlg::OnBnClickedButtonHit ()
 }
 
 
-void COpenCVViewDlg::OnBnClickedButtonStand ()
+void CBlackJackDlg::OnBnClickedButtonStand ()
 {
 	EnableFourButtons (0, 0, 0, 0);
 	//使用"雙方各發兩張牌,且無顯示兩者點數"牌桌圖形
@@ -657,7 +661,7 @@ void COpenCVViewDlg::OnBnClickedButtonStand ()
 	
 }
 
-void COpenCVViewDlg::WaitTime (int iTime)
+void CBlackJackDlg::WaitTime (int iTime)
 {
 	MSG msg;
 
@@ -677,14 +681,14 @@ void COpenCVViewDlg::WaitTime (int iTime)
 	}
 }
 
-void COpenCVViewDlg::WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, Size size, int iFlags, int iBorder)
+void CBlackJackDlg::WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, Size size, int iFlags, int iBorder)
 {
 	warpPerspective (matSrc, matDst, matTransform, size, iFlags, iBorder);
 	cvWaitKey (700);
 	imshow ("Black Jack", matDst);
 }
  
-void COpenCVViewDlg::DrawNumber (CDC* pDC)
+void CBlackJackDlg::DrawNumber (CDC* pDC)
 {
 	CRect rect, rectChips, rectStakes;
 	GetDlgItem (IDC_PIC_NUM_DISPLAY)->GetWindowRect (rect);
@@ -719,7 +723,7 @@ void COpenCVViewDlg::DrawNumber (CDC* pDC)
 	pDC->SetBkColor (GetSysColor (COLOR_WINDOW));
 	//
 }
-void COpenCVViewDlg::SetPerspectivePoint ()
+void CBlackJackDlg::SetPerspectivePoint ()
 {
 	//設定待投影牌桌座標
 	m_ptsTableTop[0] = Point (0, 0);//LT
@@ -763,11 +767,34 @@ void COpenCVViewDlg::SetPerspectivePoint ()
 	m_matBankerPerspectiveFive = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerFive);
 
 	//玩家第一張牌投影位置
-	m_ptsPlayerOne[0] = Point (144, 223);//LT
-	m_ptsPlayerOne[1] = Point (211, 254);//RT
-	m_ptsPlayerOne[2] = Point (102, 313);//LB
-	m_ptsPlayerOne[3] = Point (169, 344);//RB
+	m_ptsPlayerOne[0] = PLAYER_CARD1_LT;//LT
+	m_ptsPlayerOne[1] = PLAYER_CARD1_RT;//RT
+	m_ptsPlayerOne[2] = PLAYER_CARD1_LB;//LB
+	m_ptsPlayerOne[3] = PLAYER_CARD1_RB;//RB
 	m_matPlayerPerspectiveOne = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerOne);
+
+	//DDD
+	//Point2f vecLT2RT = PLAYER_CARD1_RT - PLAYER_CARD1_LT;
+	//Point2f vecLB2RB = PLAYER_CARD1_RB - PLAYER_CARD1_LB;
+	//vector<Point2f> v; 
+	//v.push_back (m_ptsPlayerOne[0]);
+	//v.push_back (m_ptsPlayerOne[1]);
+	//v.push_back (m_ptsPlayerOne[2]);
+	//v.push_back (m_ptsPlayerOne[3]);
+	//Rect rect = boundingRect (v);
+	//for (int i = 1; i < 20; i++)
+	//{
+	//	Mat matShow = m_matShow.clone ();
+	//	m_ptsPlayerOne[0] = PLAYER_CARD1_LT + vecLT2RT / 40 * i;//LT
+	//	m_ptsPlayerOne[1] = PLAYER_CARD1_RT - vecLT2RT / 40 * i;//RT
+	//	m_ptsPlayerOne[2] = PLAYER_CARD1_LB + vecLT2RT / 40 * i;//LB
+	//	m_ptsPlayerOne[3] = PLAYER_CARD1_RB - vecLT2RT / 40 * i;//RB
+	//	Mat matAction = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerOne);
+	//	warpPerspective (m_matHoleCard, matShow, matAction, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+	//	string s = format ("C:\\users\\user\\Downloads\\%d.jpg", i);
+	//	imwrite (s, matShow (rect));
+	//}
+	//DDD
 
 	//玩家第二張牌投影位置
 	m_ptsPlayerTwo[0] = Point (297, 283);//LT
@@ -798,7 +825,7 @@ void COpenCVViewDlg::SetPerspectivePoint ()
 	m_matPlayerPerspectiveFive = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerFive);
 }
 
-void  COpenCVViewDlg::Drawcard (vector<int>&vecCard, int iCounter[], int &iPoint, int &iPointA, int &A) 
+void  CBlackJackDlg::Drawcard (vector<int>&vecCard, int iCounter[], int &iPoint, int &iPointA, int &A) 
 {
 	int iNum = 0;
 
@@ -865,7 +892,7 @@ void  COpenCVViewDlg::Drawcard (vector<int>&vecCard, int iCounter[], int &iPoint
 		iPointA += 9;
 	}
 }
-void  COpenCVViewDlg::Judge (int iBankerPnt, int iPlayerPoint, int iBankerPntA, int iPlayerPointA) 
+void  CBlackJackDlg::Judge (int iBankerPnt, int iPlayerPoint, int iBankerPntA, int iPlayerPointA) 
 {
 	if (iBankerPntA > 21 && iPlayerPointA > 21)
 	{
@@ -935,7 +962,7 @@ void  COpenCVViewDlg::Judge (int iBankerPnt, int iPlayerPoint, int iBankerPntA, 
 
 
 
-void COpenCVViewDlg::OnBnClickedButton100 ()
+void CBlackJackDlg::OnBnClickedButton100 ()
 {
 	if (m_iChips < 100)
 		return;
@@ -953,7 +980,7 @@ void COpenCVViewDlg::OnBnClickedButton100 ()
 }
 
 
-BOOL COpenCVViewDlg::OnEraseBkgnd (CDC* pDC)
+BOOL CBlackJackDlg::OnEraseBkgnd (CDC* pDC)
 {
 	// TODO: Add your message handler code here and/or call default
 
@@ -962,7 +989,7 @@ BOOL COpenCVViewDlg::OnEraseBkgnd (CDC* pDC)
 }
 
 
-void COpenCVViewDlg::OnBnClickedButton1000 ()
+void CBlackJackDlg::OnBnClickedButton1000 ()
 {
 	if (m_iChips < 1000)
 		return;
@@ -979,7 +1006,7 @@ void COpenCVViewDlg::OnBnClickedButton1000 ()
 }
 
 
-void COpenCVViewDlg::OnBnClickedButton5000 ()
+void CBlackJackDlg::OnBnClickedButton5000 ()
 {
 	if (m_iChips < 5000)
 		return;
@@ -995,7 +1022,7 @@ void COpenCVViewDlg::OnBnClickedButton5000 ()
 	}
 }
 
-void COpenCVViewDlg::EnableFourButtons (BOOL bEnable1, BOOL bEnable2, BOOL bEnable3, BOOL bEnable4)
+void CBlackJackDlg::EnableFourButtons (BOOL bEnable1, BOOL bEnable2, BOOL bEnable3, BOOL bEnable4)
 {
 	//m_btnDeal.SetBitmaps (bEnable1 ? IDB_BITMAP_PLAY : IDB_BITMAP_PLAY_GREY, RGB (0, 0, 0));
 	m_btnDeal.SetBitmaps (bEnable1 ? IDB_BITMAP_PLAY : IDB_BITMAP_PLAY_GREY, RGB (0, 0, 0));
@@ -1008,7 +1035,7 @@ void COpenCVViewDlg::EnableFourButtons (BOOL bEnable1, BOOL bEnable2, BOOL bEnab
 	m_btnDouble.EnableWindow (bEnable4);
 }
 
-void COpenCVViewDlg::Restart ()
+void CBlackJackDlg::Restart ()
 {
 	m_iBankerPntDeal = 0;
 	m_iBankerPnt = 0;
@@ -1050,7 +1077,7 @@ void COpenCVViewDlg::Restart ()
 	EnableFourButtons (TRUE, FALSE, FALSE, TRUE);
 }
 
-void COpenCVViewDlg::ShowStatus ()
+void CBlackJackDlg::ShowStatus ()
 {
 	int iRadius = 50;
 	Point ptOffset (30, 0);
@@ -1126,7 +1153,7 @@ void COpenCVViewDlg::ShowStatus ()
 	Restart ();
 }
 
-void COpenCVViewDlg::ShowPoint (Mat matShow)
+void CBlackJackDlg::ShowPoint (Mat matShow)
 {
 	putText (matShow, m_strPlayerPoint, PLAYER_POINT_POS, FONT_HERSHEY_SCRIPT_SIMPLEX, 1.5, clrString, 3);
 	putText (matShow, m_strBankerPoint, BANKER_POINT_POS, FONT_HERSHEY_SCRIPT_SIMPLEX, 1.5, clrString, 3);
@@ -1135,7 +1162,7 @@ void COpenCVViewDlg::ShowPoint (Mat matShow)
 
 
 
-void COpenCVViewDlg::OnBnClickedButtonDouble ()
+void CBlackJackDlg::OnBnClickedButtonDouble ()
 {
 	if (m_iChips < m_iStakes)
 		return;

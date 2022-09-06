@@ -1,11 +1,11 @@
 ﻿//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by OpenCVView.rc
+// Used by BlackJack.rc
 //
 #define IDM_ABOUTBOX                    0x0010
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
-#define IDD_OPENCVVIEW_DIALOG           102
+#define IDD_BlackJack_DIALOG           102
 #define IDR_MAINFRAME                   128
 #define IDB_BITMAP_100                  136
 #define IDB_BITMAP_1000                 137

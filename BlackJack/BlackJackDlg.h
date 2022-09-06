@@ -1,5 +1,5 @@
 ﻿
-// OpenCVViewDlg.h: 標頭檔
+// BlackJackDlg.h: 標頭檔
 //
 #include "opencv2/opencv.hpp"
 #include "BtnST.h"
@@ -26,16 +26,16 @@ using namespace std;
 
 #define TABLE_WIDTH 1002
 #define TABLE_HEIGHT 450
-// COpenCVViewDlg 對話方塊
-class COpenCVViewDlg : public CDialogEx
+// CBlackJackDlg 對話方塊
+class CBlackJackDlg : public CDialogEx
 {
 // 建構
 public:
-	COpenCVViewDlg(CWnd* pParent = nullptr);	// 標準建構函式
+	CBlackJackDlg(CWnd* pParent = nullptr);	// 標準建構函式
 
 // 對話方塊資料
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_OPENCVVIEW_DIALOG };
+	enum { IDD = IDD_BlackJack_DIALOG };
 #endif
 
 	protected:
