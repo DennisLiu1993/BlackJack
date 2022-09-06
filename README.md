@@ -55,7 +55,7 @@ In this way, showing all cards continually can simulate the action of flipping
 ![18](https://user-images.githubusercontent.com/104763587/188575973-0d93cfe8-c8bb-454d-88e8-fe7f75df4cfc.jpg)
 ![19](https://user-images.githubusercontent.com/104763587/188575976-ba97626a-dda2-4e39-a35a-0b0e13a1bd6c.jpg)
 
-code like this:
+code to output images like this:
 
 ```
 Point2f vecLT2RT = PLAYER_CARD1_RT - PLAYER_CARD1_LT;
