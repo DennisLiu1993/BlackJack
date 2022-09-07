@@ -65,16 +65,16 @@ protected:
 	Mat m_matPlayerHitPntNoBankerPnt;
 
 	Point2f m_ptsTableTop[4];
-	Point2f m_ptsPlayerOne[4];
-	Point2f m_ptsPlayerTwo[4];
+	Point2f m_ptsPlayerPos[5][4];
+	/*Point2f m_ptsPlayerTwo[4];
 	Point2f m_ptsPlayerThree[4];
 	Point2f m_ptsPlayerFour[4];
-	Point2f m_ptsPlayerFive[4];
-	Point2f m_ptsBankerOne[4];
-	Point2f m_ptsBankerTwo[4];
+	Point2f m_ptsPlayerFive[4];*/
+	Point2f m_ptsBankerPos[5][4];
+	/*Point2f m_ptsBankerTwo[4];
 	Point2f m_ptsBankerThree[4];
 	Point2f m_ptsBankerFour[4];
-	Point2f m_ptsBankerFive[4];
+	Point2f m_ptsBankerFive[4];*/
 
 	Mat m_matPlayerPerspectiveOne;
 	Mat m_matPlayerPerspectiveTwo;
@@ -125,7 +125,7 @@ protected:
 	CButtonST m_btn1000;
 	CButtonST m_btn5000;
 	void WaitTime (int iTime);
-	void WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, Size size, int iFlags, int iBorder);
+	void WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, Size size, int iFlags, int iBorder, BOOL bBanker, int iCardPosIndex);
 	void DrawNumber (CDC* pdc);
 	int m_iChips;
 	int m_iStakes;

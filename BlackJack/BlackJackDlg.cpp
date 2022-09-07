@@ -14,10 +14,56 @@
 
 #define BANKER_POINT_POS Point (800, 60)
 #define PLAYER_POINT_POS Point (800, 400)
+
+#define BANKER_CARD1_LT Point (262, 25)
+#define BANKER_CARD1_RT Point (333, 25)
+#define BANKER_CARD1_LB Point (262, 121)
+#define BANKER_CARD1_RB Point (333, 121)
+
+#define BANKER_CARD2_LT Point (362, 25)
+#define BANKER_CARD2_RT Point (433, 25)
+#define BANKER_CARD2_LB Point (362, 121)
+#define BANKER_CARD2_RB Point (433, 121)
+
+#define BANKER_CARD3_LT Point (462, 25)
+#define BANKER_CARD3_RT Point (533, 25)
+#define BANKER_CARD3_LB Point (462, 121)
+#define BANKER_CARD3_RB Point (533, 121)
+
+#define BANKER_CARD4_LT Point (562, 25)
+#define BANKER_CARD4_RT Point (633, 25)
+#define BANKER_CARD4_LB Point (562, 121)
+#define BANKER_CARD4_RB Point (633, 121)
+
+#define BANKER_CARD5_LT Point (662, 25)
+#define BANKER_CARD5_RT Point (733, 25)
+#define BANKER_CARD5_LB Point (662, 121)
+#define BANKER_CARD5_RB Point (733, 121)
+
 #define PLAYER_CARD1_LT Point2f (144, 223)
 #define PLAYER_CARD1_RT Point2f (211, 254)
 #define PLAYER_CARD1_LB Point2f (102, 313)
 #define PLAYER_CARD1_RB Point2f (169, 344)
+
+#define PLAYER_CARD2_LT Point (297, 283)
+#define PLAYER_CARD2_RT Point (371, 299)
+#define PLAYER_CARD2_LB Point (276, 380)
+#define PLAYER_CARD2_RB Point (349, 397)
+
+#define PLAYER_CARD3_LT Point (461, 311)
+#define PLAYER_CARD3_RT Point (535, 311)
+#define PLAYER_CARD3_LB Point (461, 410)
+#define PLAYER_CARD3_RB Point (536, 410)
+
+#define PLAYER_CARD4_LT Point (627, 299)
+#define PLAYER_CARD4_RT Point (700, 283)
+#define PLAYER_CARD4_LB Point (648, 397)
+#define PLAYER_CARD4_RB Point (722, 381)
+
+#define PLAYER_CARD5_LT Point (786, 254)
+#define PLAYER_CARD5_RT Point (854, 223)
+#define PLAYER_CARD5_LB Point (829, 344)
+#define PLAYER_CARD5_RB Point (896, 312)
 // 對 App About 使用 CAboutDlg 對話方塊
 
 class CAboutDlg : public CDialogEx
@@ -308,13 +354,13 @@ void CBlackJackDlg::OnBnClickedButtonDeal ()
 	//莊家BlackJack 玩家沒有
 	if (m_bBankerBJ && !m_bPlayerBJ) 
 	{
-		WarpPerspective (m_matCard[vecBankerCard[0]], m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecBankerCard[1]], m_matShow, m_matBankerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecBankerCard[0]], m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 0);
+		WarpPerspective (m_matCard[vecBankerCard[1]], m_matShow, m_matBankerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 1);
 		m_strBankerPoint = format ("%d", m_iBankerPntA);
 		putText (m_matShow, m_strBankerPoint, Point (800, 60), FONT_HERSHEY_SCRIPT_SIMPLEX, 1.5, clrString, 3);
 
-		WarpPerspective (m_matCard[vecPlayerCard[0]], m_matShow, m_matPlayerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecPlayerCard[1]], m_matShow, m_matPlayerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[0]], m_matShow, m_matPlayerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 0);
+		WarpPerspective (m_matCard[vecPlayerCard[1]], m_matShow, m_matPlayerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 1);
 
 		if (m_iPlayerA != 0)
 			m_strPlayerPoint = format ("%d/%d", m_iPlayerPnt, m_iPlayerPntA);
@@ -332,13 +378,13 @@ void CBlackJackDlg::OnBnClickedButtonDeal ()
 	//玩家Black Jack 莊家沒有
 	else if (!m_bBankerBJ  && m_bPlayerBJ) 
 	{
-		WarpPerspective (m_matCard[vecBankerCard[0]], m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecBankerCard[1]], m_matShow, m_matBankerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecBankerCard[0]], m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 0);
+		WarpPerspective (m_matCard[vecBankerCard[1]], m_matShow, m_matBankerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 1);
 		m_strBankerPoint = format ("%d", m_iBankerPntA);
 		putText (m_matShow, m_strBankerPoint, Point (800, 60), FONT_HERSHEY_SCRIPT_SIMPLEX, 1.5, clrString, 3);
 
-		WarpPerspective (m_matCard[vecPlayerCard[0]], m_matShow, m_matPlayerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecPlayerCard[1]], m_matShow, m_matPlayerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[0]], m_matShow, m_matPlayerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 0);
+		WarpPerspective (m_matCard[vecPlayerCard[1]], m_matShow, m_matPlayerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 1);
 		m_strPlayerPoint = format ("%d", m_iPlayerPntA);
 		putText (m_matShow, m_strPlayerPoint, Point (800, 400), FONT_HERSHEY_SCRIPT_SIMPLEX, 1.5, clrString, 3);
 
@@ -351,13 +397,13 @@ void CBlackJackDlg::OnBnClickedButtonDeal ()
 	//兩邊都是Black Jack
 	else if (m_bBankerBJ  && m_bPlayerBJ) 
 	{
-		WarpPerspective (m_matCard[vecBankerCard[0]], m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecBankerCard[1]], m_matShow, m_matBankerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecBankerCard[0]], m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 0);
+		WarpPerspective (m_matCard[vecBankerCard[1]], m_matShow, m_matBankerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 1);
 		m_strBankerPoint = format ("%d", m_iBankerPntA);
 		putText (m_matShow, m_strBankerPoint, Point (800, 60), FONT_HERSHEY_SCRIPT_SIMPLEX, 1.5, clrString, 3);
 
-		WarpPerspective (m_matCard[vecPlayerCard[0]], m_matShow, m_matPlayerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecPlayerCard[1]], m_matShow, m_matPlayerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[0]], m_matShow, m_matPlayerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 0);
+		WarpPerspective (m_matCard[vecPlayerCard[1]], m_matShow, m_matPlayerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 1);
 		m_strPlayerPoint = format ("%d", m_iPlayerPntA);
 		putText (m_matShow, m_strPlayerPoint, Point (800, 400), FONT_HERSHEY_SCRIPT_SIMPLEX, 1.5, clrString, 3);
 		imshow ("Black Jack", m_matShow);
@@ -370,9 +416,9 @@ void CBlackJackDlg::OnBnClickedButtonDeal ()
 	else 
 	{
 		//莊家第一張牌為底牌不顯示
-		WarpPerspective (m_matHoleCard, m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matHoleCard, m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, -1);
 		//顯示莊家第二張牌
-		WarpPerspective (m_matCard[vecBankerCard[1]], m_matShow, m_matBankerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecBankerCard[1]], m_matShow, m_matBankerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 1);
 		
 		if (vecBankerCard[1] >= 36 && vecBankerCard[1] <= 51)
 			m_iBankerPntDeal += 10;
@@ -398,8 +444,8 @@ void CBlackJackDlg::OnBnClickedButtonDeal ()
 		m_iBankerStatus = TWO_CARD;
 
 		//顯示玩家的兩張牌
-		WarpPerspective (m_matCard[vecPlayerCard[0]], m_matShow, m_matPlayerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecPlayerCard[1]], m_matShow, m_matPlayerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[0]], m_matShow, m_matPlayerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 0);
+		WarpPerspective (m_matCard[vecPlayerCard[1]], m_matShow, m_matPlayerPerspectiveTwo, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 1);
 		
 		//儲存發牌牌桌圖形(沒顯示兩者點數)
 		m_matPlayerHitPntNoBankerPnt = m_matShow.clone ();
@@ -435,7 +481,7 @@ void CBlackJackDlg::OnBnClickedButtonHit ()
 		m_matShow = m_matBankerDealPnt.clone ();
 
 		Drawcard (vecPlayerCard, m_iCardCount, m_iPlayerPnt, m_iPlayerPntA, m_iPlayerA);
-		WarpPerspective (m_matCard[vecPlayerCard[2]], m_matShow, m_matPlayerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[2]], m_matShow, m_matPlayerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 2);
 		
 		//儲存玩家抽第三張牌時牌桌圖形(顯示莊家點數,無玩家點數)
 		Mat matTemp = m_matShow.clone ();
@@ -458,7 +504,7 @@ void CBlackJackDlg::OnBnClickedButtonHit ()
 		//使用"顯示莊家點數,無玩家點數"牌桌圖形
 		m_matShow = m_matPlayerHitPnt.clone ();
 		Drawcard (vecPlayerCard, m_iCardCount, m_iPlayerPnt, m_iPlayerPntA, m_iPlayerA);
-		WarpPerspective (m_matCard[vecPlayerCard[3]], m_matShow, m_matPlayerPerspectiveFour, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[3]], m_matShow, m_matPlayerPerspectiveFour, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 3);
 
 		//儲存玩家抽第四張牌時牌桌圖形(顯示莊家點數,無玩家點數)
 		Mat matTemp = m_matShow.clone ();
@@ -479,7 +525,7 @@ void CBlackJackDlg::OnBnClickedButtonHit ()
 		//使用"顯示莊家點數,無玩家點數"牌桌圖形
 		m_matShow = m_matPlayerHitPnt.clone ();
 		Drawcard (vecPlayerCard, m_iCardCount, m_iPlayerPnt, m_iPlayerPntA, m_iPlayerA);
-		WarpPerspective (m_matCard[vecPlayerCard[4]], m_matShow, m_matPlayerPerspectiveFive, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[4]], m_matShow, m_matPlayerPerspectiveFive, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 4);
 		imshow ("Black Jack", m_matShow);
 
 		//儲存玩家抽第五張牌時牌桌圖形(顯示莊家點數,無玩家點數)
@@ -525,17 +571,17 @@ void CBlackJackDlg::OnBnClickedButtonStand ()
 
 	//從m_iPlayerStatus判斷並補足顯示牌數
 	if (m_iPlayerStatus == THREE_CARD)
-		WarpPerspective (m_matCard[vecPlayerCard[2]], m_matShow, m_matPlayerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[2]], m_matShow, m_matPlayerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 2);
 	else if (m_iPlayerStatus == FOUR_CARD)
 	{
-		WarpPerspective (m_matCard[vecPlayerCard[2]], m_matShow, m_matPlayerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecPlayerCard[3]], m_matShow, m_matPlayerPerspectiveFour, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[2]], m_matShow, m_matPlayerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 2);
+		WarpPerspective (m_matCard[vecPlayerCard[3]], m_matShow, m_matPlayerPerspectiveFour, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 3);
 	}
 	else if (m_iPlayerStatus == FIVE_CARD)
 	{
-		WarpPerspective (m_matCard[vecPlayerCard[2]], m_matShow, m_matPlayerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecPlayerCard[3]], m_matShow, m_matPlayerPerspectiveFour, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-		WarpPerspective (m_matCard[vecPlayerCard[4]], m_matShow, m_matPlayerPerspectiveFive, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecPlayerCard[2]], m_matShow, m_matPlayerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 2);
+		WarpPerspective (m_matCard[vecPlayerCard[3]], m_matShow, m_matPlayerPerspectiveFour, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 3);
+		WarpPerspective (m_matCard[vecPlayerCard[4]], m_matShow, m_matPlayerPerspectiveFive, m_matTableTop.size (), 1, BORDER_TRANSPARENT, FALSE, 4);
 	}
 	//顯示玩家點數
 	if (m_iPlayerPntA <= 21 && m_iPlayerA != 0)
@@ -548,7 +594,7 @@ void CBlackJackDlg::OnBnClickedButtonStand ()
 	if (m_iGameStatus == 0)
 	{
 		//印出蓋住的第一張牌
-		WarpPerspective (m_matCard[vecBankerCard[0]], m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+		WarpPerspective (m_matCard[vecBankerCard[0]], m_matShow, m_matBankerPerspectiveOne, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 0);
 		if (m_iBankerA != 0)
 			m_strBankerPoint = format ("%d", m_iBankerPntA);
 		else
@@ -574,7 +620,7 @@ void CBlackJackDlg::OnBnClickedButtonStand ()
 			//莊家抽第三張牌
 			Drawcard (vecBankerCard, m_iCardCount, m_iBankerPnt, m_iBankerPntA, m_iBankerA);
 			//顯示莊家第三張牌
-			WarpPerspective (m_matCard[vecBankerCard[2]], m_matShow, m_matBankerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+			WarpPerspective (m_matCard[vecBankerCard[2]], m_matShow, m_matBankerPerspectiveThree, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 2);
 			if (m_iBankerA != 0 && m_iBankerPntA <= 21)
 				m_strBankerPoint = format ("%d", m_iBankerPntA);
 			else
@@ -607,7 +653,7 @@ void CBlackJackDlg::OnBnClickedButtonStand ()
 			//莊家抽第四張牌
 			Drawcard (vecBankerCard, m_iCardCount, m_iBankerPnt, m_iBankerPntA, m_iBankerA);
 			//顯示莊家第四張牌
-			WarpPerspective (m_matCard[vecBankerCard[3]], m_matShow, m_matBankerPerspectiveFour, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+			WarpPerspective (m_matCard[vecBankerCard[3]], m_matShow, m_matBankerPerspectiveFour, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 3);
 			if (m_iBankerA != 0 && m_iBankerPntA <= 21)
 				m_strBankerPoint = format ("%d", m_iBankerPntA);
 			else
@@ -639,7 +685,7 @@ void CBlackJackDlg::OnBnClickedButtonStand ()
 			//莊家抽第五張牌
 			Drawcard (vecBankerCard, m_iCardCount, m_iBankerPnt, m_iBankerPntA, m_iBankerA);
 			//顯示莊家第五張牌
-			WarpPerspective (m_matCard[vecBankerCard[4]], m_matShow, m_matBankerPerspectiveFive, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+			WarpPerspective (m_matCard[vecBankerCard[4]], m_matShow, m_matBankerPerspectiveFive, m_matTableTop.size (), 1, BORDER_TRANSPARENT, TRUE, 4);
 			if (m_iBankerA != 0 && m_iBankerPntA <= 21)
 				m_strBankerPoint = format ("%d", m_iBankerPntA);
 			else
@@ -681,11 +727,53 @@ void CBlackJackDlg::WaitTime (int iTime)
 	}
 }
 
-void CBlackJackDlg::WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, Size size, int iFlags, int iBorder)
+void CBlackJackDlg::WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, Size size, int iFlags, int iBorder, BOOL bBanker, int iPos)
 {
+
+	if (! (bBanker && (iPos == -1 || iPos == 0)))
+	{
+		Point2f ptCard_4Corners[4];
+		for (int i = 0; i < 4; i++)
+			ptCard_4Corners[i] = bBanker ? m_ptsBankerPos[iPos][i] : m_ptsPlayerPos[iPos][i];
+		Point2f vecLT2RT = ptCard_4Corners[1] - ptCard_4Corners[0];//RT-LT
+		Point2f vecLB2RB = ptCard_4Corners[3] - ptCard_4Corners[2];//RB-LB
+
+		Point2f ptsNewCorner[4];
+		int iSteps = 20;
+		//back
+		for (int i = 1; i < iSteps; i++)
+		{
+			Mat matShow = m_matShow.clone ();
+			ptsNewCorner[0] = ptCard_4Corners[0] + vecLT2RT / (iSteps * 2) * i;//LT
+			ptsNewCorner[1] = ptCard_4Corners[1] - vecLT2RT / (iSteps * 2) * i;//RT
+			ptsNewCorner[2] = ptCard_4Corners[2] + vecLT2RT / (iSteps * 2) * i;//LB
+			ptsNewCorner[3] = ptCard_4Corners[3] - vecLT2RT / (iSteps * 2) * i;//RB
+			Mat matAction = getPerspectiveTransform (m_ptsTableTop, ptsNewCorner);
+			warpPerspective (m_matHoleCard, matShow, matAction, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+			imshow ("Black Jack", matShow);
+			WaitTime (15);
+		}
+		//front
+		for (int i = iSteps; i > 0; i--)
+		{
+			Mat matShow = m_matShow.clone ();
+			ptsNewCorner[0] = ptCard_4Corners[0] + vecLT2RT / (iSteps * 2) * i;//LT
+			ptsNewCorner[1] = ptCard_4Corners[1] - vecLT2RT / (iSteps * 2) * i;//RT
+			ptsNewCorner[2] = ptCard_4Corners[2] + vecLT2RT / (iSteps * 2) * i;//LB
+			ptsNewCorner[3] = ptCard_4Corners[3] - vecLT2RT / (iSteps * 2) * i;//RB
+			Mat matAction = getPerspectiveTransform (m_ptsTableTop, ptsNewCorner);
+			warpPerspective (matSrc, matShow, matAction, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
+			imshow ("Black Jack", matShow);
+			WaitTime (15);
+		}
+
+	}
+		
+	
 	warpPerspective (matSrc, matDst, matTransform, size, iFlags, iBorder);
-	cvWaitKey (700);
 	imshow ("Black Jack", matDst);
+	if (bBanker && (iPos == -1 || iPos == 0))
+		WaitTime (500);
 }
  
 void CBlackJackDlg::DrawNumber (CDC* pDC)
@@ -732,97 +820,74 @@ void CBlackJackDlg::SetPerspectivePoint ()
 	m_ptsTableTop[3] = Point (m_matTableTop.cols - 1, m_matTableTop.rows - 1);//RB
 
 	//莊家第一張牌投影位置
-	m_ptsBankerOne[0] = Point (262, 25);//LT
-	m_ptsBankerOne[1] = Point (333, 25);//RT
-	m_ptsBankerOne[2] = Point (262, 121);//LB
-	m_ptsBankerOne[3] = Point (333, 121);//RB
-	m_matBankerPerspectiveOne = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerOne);
+	m_ptsBankerPos[0][0] = BANKER_CARD1_LT;//LT
+	m_ptsBankerPos[0][1] = BANKER_CARD1_RT;//RT
+	m_ptsBankerPos[0][2] = BANKER_CARD1_LB;//LB
+	m_ptsBankerPos[0][3] = BANKER_CARD1_RB;//RB
+	m_matBankerPerspectiveOne = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[0]);
 
 	//莊家第二張牌投影位置
-	m_ptsBankerTwo[0] = Point (362, 25);//LT
-	m_ptsBankerTwo[1] = Point (433, 25);//RT
-	m_ptsBankerTwo[2] = Point (362, 121);//LB
-	m_ptsBankerTwo[3] = Point (433, 121);//RB
-	m_matBankerPerspectiveTwo = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerTwo);
+	m_ptsBankerPos[1][0] = BANKER_CARD2_LT;//LT
+	m_ptsBankerPos[1][1] = BANKER_CARD2_RT;//RT
+	m_ptsBankerPos[1][2] = BANKER_CARD2_LB;//LB
+	m_ptsBankerPos[1][3] = BANKER_CARD2_RB;//RB
+	m_matBankerPerspectiveTwo = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[1]);
 
 	//莊家第三張牌投影位置
-	m_ptsBankerThree[0] = Point (462, 25);//LT
-	m_ptsBankerThree[1] = Point (533, 25);//RT
-	m_ptsBankerThree[2] = Point (462, 121);//LB
-	m_ptsBankerThree[3] = Point (533, 121);//RB
-	m_matBankerPerspectiveThree = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerThree);
+	m_ptsBankerPos[2][0] = BANKER_CARD3_LT;//LT
+	m_ptsBankerPos[2][1] = BANKER_CARD3_RT;//RT
+	m_ptsBankerPos[2][2] = BANKER_CARD3_LB;//LB
+	m_ptsBankerPos[2][3] = BANKER_CARD3_RB;//RB
+	m_matBankerPerspectiveThree = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[2]);
 
 	//莊家第四張牌投影位置
-	m_ptsBankerFour[0] = Point (562, 25);//LT
-	m_ptsBankerFour[1] = Point (633, 25);//RT
-	m_ptsBankerFour[2] = Point (562, 121);//LB
-	m_ptsBankerFour[3] = Point (633, 121);//RB
-	m_matBankerPerspectiveFour = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerFour);
+	m_ptsBankerPos[3][0] = BANKER_CARD4_LT;//LT
+	m_ptsBankerPos[3][1] = BANKER_CARD4_RT;//RT
+	m_ptsBankerPos[3][2] = BANKER_CARD4_LB;//LB
+	m_ptsBankerPos[3][3] = BANKER_CARD4_RB;//RB
+	m_matBankerPerspectiveFour = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[3]);
 
 	//莊家第五張牌投影位置
-	m_ptsBankerFive[0] = Point (662, 25);//LT
-	m_ptsBankerFive[1] = Point (733, 25);//RT
-	m_ptsBankerFive[2] = Point (662, 121);//LB
-	m_ptsBankerFive[3] = Point (733, 121);//RB
-	m_matBankerPerspectiveFive = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerFive);
+	m_ptsBankerPos[4][0] = BANKER_CARD5_LT;//LT
+	m_ptsBankerPos[4][1] = BANKER_CARD5_RT;//RT
+	m_ptsBankerPos[4][2] = BANKER_CARD5_LB;//LB
+	m_ptsBankerPos[4][3] = BANKER_CARD5_RB;//RB
+	m_matBankerPerspectiveFive = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[4]);
 
 	//玩家第一張牌投影位置
-	m_ptsPlayerOne[0] = PLAYER_CARD1_LT;//LT
-	m_ptsPlayerOne[1] = PLAYER_CARD1_RT;//RT
-	m_ptsPlayerOne[2] = PLAYER_CARD1_LB;//LB
-	m_ptsPlayerOne[3] = PLAYER_CARD1_RB;//RB
-	m_matPlayerPerspectiveOne = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerOne);
-
-	//DDD
-	//Point2f vecLT2RT = PLAYER_CARD1_RT - PLAYER_CARD1_LT;
-	//Point2f vecLB2RB = PLAYER_CARD1_RB - PLAYER_CARD1_LB;
-	//vector<Point2f> v; 
-	//v.push_back (m_ptsPlayerOne[0]);
-	//v.push_back (m_ptsPlayerOne[1]);
-	//v.push_back (m_ptsPlayerOne[2]);
-	//v.push_back (m_ptsPlayerOne[3]);
-	//Rect rect = boundingRect (v);
-	//for (int i = 1; i < 20; i++)
-	//{
-	//	Mat matShow = m_matShow.clone ();
-	//	m_ptsPlayerOne[0] = PLAYER_CARD1_LT + vecLT2RT / 40 * i;//LT
-	//	m_ptsPlayerOne[1] = PLAYER_CARD1_RT - vecLT2RT / 40 * i;//RT
-	//	m_ptsPlayerOne[2] = PLAYER_CARD1_LB + vecLT2RT / 40 * i;//LB
-	//	m_ptsPlayerOne[3] = PLAYER_CARD1_RB - vecLT2RT / 40 * i;//RB
-	//	Mat matAction = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerOne);
-	//	warpPerspective (m_matHoleCard, matShow, matAction, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
-	//	string s = format ("C:\\users\\user\\Downloads\\%d.jpg", i);
-	//	imwrite (s, matShow (rect));
-	//}
-	//DDD
+	m_ptsPlayerPos[0][0] = PLAYER_CARD1_LT;//LT
+	m_ptsPlayerPos[0][1] = PLAYER_CARD1_RT;//RT
+	m_ptsPlayerPos[0][2] = PLAYER_CARD1_LB;//LB
+	m_ptsPlayerPos[0][3] = PLAYER_CARD1_RB;//RB
+	m_matPlayerPerspectiveOne = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[0]);
 
 	//玩家第二張牌投影位置
-	m_ptsPlayerTwo[0] = Point (297, 283);//LT
-	m_ptsPlayerTwo[1] = Point (371, 299);//RT
-	m_ptsPlayerTwo[2] = Point (276, 380);//LB
-	m_ptsPlayerTwo[3] = Point (349, 397);//RB
-	m_matPlayerPerspectiveTwo = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerTwo);
+	m_ptsPlayerPos[1][0] = PLAYER_CARD2_LT;//LT
+	m_ptsPlayerPos[1][1] = PLAYER_CARD2_RT;//RT
+	m_ptsPlayerPos[1][2] = PLAYER_CARD2_LB;//LB
+	m_ptsPlayerPos[1][3] = PLAYER_CARD2_RB;//RB
+	m_matPlayerPerspectiveTwo = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[1]);
 
 	//玩家第三張牌投影位置
-	m_ptsPlayerThree[0] = Point (461, 311);//LT
-	m_ptsPlayerThree[1] = Point (535, 311);//RT
-	m_ptsPlayerThree[2] = Point (461, 410);//LB
-	m_ptsPlayerThree[3] = Point (536, 410);//RB
-	m_matPlayerPerspectiveThree = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerThree);
+	m_ptsPlayerPos[2][0] = PLAYER_CARD3_LT;//LT
+	m_ptsPlayerPos[2][1] = PLAYER_CARD3_RT;//RT
+	m_ptsPlayerPos[2][2] = PLAYER_CARD3_LB;//LB
+	m_ptsPlayerPos[2][3] = PLAYER_CARD3_RB;//RB
+	m_matPlayerPerspectiveThree = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[2]);
 
 	//玩家第四張牌投影位置
-	m_ptsPlayerFour[0] = Point (627, 299);//LT
-	m_ptsPlayerFour[1] = Point (700, 283);//RT
-	m_ptsPlayerFour[2] = Point (648, 397);//LB
-	m_ptsPlayerFour[3] = Point (722, 381);//RB
-	m_matPlayerPerspectiveFour = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerFour);
+	m_ptsPlayerPos[3][0] = PLAYER_CARD4_LT;//LT
+	m_ptsPlayerPos[3][1] = PLAYER_CARD4_LT;//RT
+	m_ptsPlayerPos[3][2] = PLAYER_CARD4_LT;//LB
+	m_ptsPlayerPos[3][3] = PLAYER_CARD4_LT;//RB
+	m_matPlayerPerspectiveFour = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[3]);
 
 	//玩家第五張牌投影位置
-	m_ptsPlayerFive[0] = Point (786, 254);//LT
-	m_ptsPlayerFive[1] = Point (854, 223);//RT
-	m_ptsPlayerFive[2] = Point (829, 344);//LB
-	m_ptsPlayerFive[3] = Point (896, 312);//RB
-	m_matPlayerPerspectiveFive = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerFive);
+	m_ptsPlayerPos[4][0] = PLAYER_CARD5_LT;//LT
+	m_ptsPlayerPos[4][1] = PLAYER_CARD5_LT;//RT
+	m_ptsPlayerPos[4][2] = PLAYER_CARD5_LT;//LB
+	m_ptsPlayerPos[4][3] = PLAYER_CARD5_LT;//RB
+	m_matPlayerPerspectiveFive = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[4]);
 }
 
 void  CBlackJackDlg::Drawcard (vector<int>&vecCard, int iCounter[], int &iPoint, int &iPointA, int &A) 
@@ -1112,7 +1177,10 @@ void CBlackJackDlg::ShowStatus ()
 	switch (m_iGameStatus)
 	{
 	case PLAYER_WIN:
-		iNewChips += m_iStakes * 2;
+		if (stoi (m_strPlayerPoint) == 21)
+			iNewChips += m_iStakes * 2.5;
+		else
+			iNewChips += m_iStakes * 2;
 		m_btnShowStatus.SetBitmaps (IDB_BITMAP_WIN, RGB (0, 128, 0));
 		circle (m_matShow, Point (800, 400), iRadius, clrRed, 5);
 		break;
