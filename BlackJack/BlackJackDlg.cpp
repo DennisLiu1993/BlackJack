@@ -877,16 +877,16 @@ void CBlackJackDlg::SetPerspectivePoint ()
 
 	//玩家第四張牌投影位置
 	m_ptsPlayerPos[3][0] = PLAYER_CARD4_LT;//LT
-	m_ptsPlayerPos[3][1] = PLAYER_CARD4_LT;//RT
-	m_ptsPlayerPos[3][2] = PLAYER_CARD4_LT;//LB
-	m_ptsPlayerPos[3][3] = PLAYER_CARD4_LT;//RB
+	m_ptsPlayerPos[3][1] = PLAYER_CARD4_RT;//RT
+	m_ptsPlayerPos[3][2] = PLAYER_CARD4_LB;//LB
+	m_ptsPlayerPos[3][3] = PLAYER_CARD4_RB;//RB
 	m_matPlayerPerspectiveFour = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[3]);
 
 	//玩家第五張牌投影位置
 	m_ptsPlayerPos[4][0] = PLAYER_CARD5_LT;//LT
 	m_ptsPlayerPos[4][1] = PLAYER_CARD5_LT;//RT
-	m_ptsPlayerPos[4][2] = PLAYER_CARD5_LT;//LB
-	m_ptsPlayerPos[4][3] = PLAYER_CARD5_LT;//RB
+	m_ptsPlayerPos[4][2] = PLAYER_CARD5_LB;//LB
+	m_ptsPlayerPos[4][3] = PLAYER_CARD5_RB;//RB
 	m_matPlayerPerspectiveFive = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[4]);
 }
 
