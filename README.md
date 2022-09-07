@@ -6,6 +6,7 @@ Using MFC to create a BlackJack game platform
 2. usage of CButtonST (Image Button with features of transparent background and no border) 
 3. OpenCV perspective tranform to show slanted cards (see WarpPespective ())
 4. dynamically show number changes (see code when win or lose)
+5. dealing cards animation
 
 # Interface
 ![image](https://user-images.githubusercontent.com/104763587/188288051-1a41785f-8329-4320-9ca6-277cc1948388.png)
