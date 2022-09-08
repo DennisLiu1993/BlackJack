@@ -19,6 +19,7 @@ using namespace std;
 #define THREE_CARD 3
 #define FOUR_CARD 4
 #define FIVE_CARD 5
+#define STATUS_NONE 10
 #define PLAYER_WIN 11
 #define PLAYER_WIN_5CARDS 12
 #define BANKER_WIN 13
@@ -65,29 +66,13 @@ protected:
 	Mat m_matPlayerHitPntNoBankerPnt;
 
 	Point2f m_ptsTableTop[4];
-	Point2f m_ptsPlayerPos[5][4];
-	/*Point2f m_ptsPlayerTwo[4];
-	Point2f m_ptsPlayerThree[4];
-	Point2f m_ptsPlayerFour[4];
-	Point2f m_ptsPlayerFive[4];*/
-	Point2f m_ptsBankerPos[5][4];
-	/*Point2f m_ptsBankerTwo[4];
-	Point2f m_ptsBankerThree[4];
-	Point2f m_ptsBankerFour[4];
-	Point2f m_ptsBankerFive[4];*/
+	Point2f m_ptsPlayerPos[5][4];//五張四個角
+	Point2f m_ptsBankerPos[5][4];//五張四個角
 
-	Mat m_matPlayerPerspectiveOne;
-	Mat m_matPlayerPerspectiveTwo;
-	Mat m_matPlayerPerspectiveThree;
-	Mat m_matPlayerPerspectiveFour;
-	Mat m_matPlayerPerspectiveFive;
-	Mat m_matBankerPerspectiveOne;
-	Mat m_matBankerPerspectiveTwo;
-	Mat m_matBankerPerspectiveThree;
-	Mat m_matBankerPerspectiveFour;
-	Mat m_matBankerPerspectiveFive;
+	Mat m_matPlayerPerspective[5];//五張牌透視矩陣
+	Mat m_matBankerPerspective[5];//五張牌透視矩陣
 
-	Mat m_matCard[52];								//52張牌圖形array
+	Mat m_matCard[CARD_NUMBER];								//52張牌圖形array
 	Mat m_matHoleCard;								//底牌圖形
 
 	int m_iBankerPntDeal;							//莊家發牌的點數
@@ -125,7 +110,7 @@ protected:
 	CButtonST m_btn1000;
 	CButtonST m_btn5000;
 	void WaitTime (int iTime);
-	void WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, Size size, int iFlags, int iBorder, BOOL bBanker, int iCardPosIndex);
+	void WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, BOOL bBanker, int iCardPosIndex, BOOL bFlip = TRUE);
 	void DrawNumber (CDC* pdc);
 	int m_iChips;
 	int m_iStakes;
@@ -137,6 +122,7 @@ protected:
 	void Restart ();
 	void ShowStatus ();
 	void ShowPoint (Mat matShow);
+	int GetCardPoint (int iCard);
 	afx_msg void OnBnClickedButtonDouble ();
 	CButtonST m_btnShowStatus;
 };
