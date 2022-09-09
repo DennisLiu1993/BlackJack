@@ -2,11 +2,11 @@
 Using MFC to create a BlackJack game platform
 
 # What You Can Learn in This Project
-1. double buffer drawing strategy in MFC to prevent controls or numbers from blinking (see OnPaint ())
-2. usage of CButtonST (Image Button with features of transparent background and no border) 
-3. OpenCV perspective tranform to show slanted cards (see WarpPespective ())
+1. **double buffer drawing** strategy in MFC to prevent controls or numbers from blinking (see OnPaint ())
+2. usage of **CButtonST** (Image Button with features of **transparent background** and no border) 
+3. OpenCV **perspective tranform** to show slanted cards (see WarpPespective ())
 4. dynamically show number changes (see code when win or lose)
-5. dealing cards animation
+5. **dealing cards animation**
 
 # Interface
 ![image](https://user-images.githubusercontent.com/104763587/188288051-1a41785f-8329-4320-9ca6-277cc1948388.png)
