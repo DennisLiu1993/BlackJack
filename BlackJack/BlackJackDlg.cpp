@@ -213,16 +213,11 @@ BOOL CBlackJackDlg::OnInitDialog()
 
 
 	//讀取52張牌
-		for (size_t i = 0; i < CARD_NUMBER; i++)
+	for (size_t i = 0; i < CARD_NUMBER; i++)
 		m_matCard[i] = imread (format("res\\%d.bmp",i+1));
 
 	//讀取底牌
 	m_matHoleCard = imread ("res\\53.bmp");
-
-	//將牌進行縮放
-	for (size_t i = 0; i < CARD_NUMBER; i++)
-		resize (m_matCard[i], m_matCard[i], m_matTableTop.size ());
-	resize (m_matHoleCard, m_matHoleCard, m_matTableTop.size ());
 
 	//設定透視投影點
 	SetPerspectivePoint ();
@@ -642,7 +637,7 @@ void CBlackJackDlg::WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, B
 			ptsNewCorner[1] = ptCard_4Corners[1] - vecLT2RT / (iSteps * 2) * i;//RT
 			ptsNewCorner[2] = ptCard_4Corners[2] + vecLT2RT / (iSteps * 2) * i;//LB
 			ptsNewCorner[3] = ptCard_4Corners[3] - vecLT2RT / (iSteps * 2) * i;//RB
-			Mat matAction = getPerspectiveTransform (m_ptsTableTop, ptsNewCorner);
+			Mat matAction = getPerspectiveTransform (m_ptsCard, ptsNewCorner);
 			warpPerspective (m_matHoleCard, matShow, matAction, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
 			imshow ("Black Jack", matShow);
 			WaitTime (15);
@@ -655,7 +650,7 @@ void CBlackJackDlg::WarpPerspective (Mat matSrc, Mat matDst, Mat matTransform, B
 			ptsNewCorner[1] = ptCard_4Corners[1] - vecLT2RT / (iSteps * 2) * i;//RT
 			ptsNewCorner[2] = ptCard_4Corners[2] + vecLT2RT / (iSteps * 2) * i;//LB
 			ptsNewCorner[3] = ptCard_4Corners[3] - vecLT2RT / (iSteps * 2) * i;//RB
-			Mat matAction = getPerspectiveTransform (m_ptsTableTop, ptsNewCorner);
+			Mat matAction = getPerspectiveTransform (m_ptsCard, ptsNewCorner);
 			warpPerspective (matSrc, matShow, matAction, m_matTableTop.size (), 1, BORDER_TRANSPARENT);
 			imshow ("Black Jack", matShow);
 			WaitTime (15);
@@ -709,80 +704,80 @@ void CBlackJackDlg::DrawNumber (CDC* pDC)
 void CBlackJackDlg::SetPerspectivePoint ()
 {
 	//設定待投影牌桌座標
-	m_ptsTableTop[0] = Point (0, 0);//LT
-	m_ptsTableTop[1] = Point (m_matTableTop.cols - 1, 0);//RT
-	m_ptsTableTop[2] = Point (0, m_matTableTop.rows - 1);//LB
-	m_ptsTableTop[3] = Point (m_matTableTop.cols - 1, m_matTableTop.rows - 1);//RB
+	m_ptsCard[0] = Point (0, 0);//LT
+	m_ptsCard[1] = Point (CARD_WIDTH - 1, 0);//RT
+	m_ptsCard[2] = Point (0, CARD_HEIGHT - 1);//LB
+	m_ptsCard[3] = Point (CARD_WIDTH - 1, CARD_HEIGHT- 1);//RB
 
 	//莊家第一張牌投影位置
 	m_ptsBankerPos[0][0] = BANKER_CARD1_LT;//LT
 	m_ptsBankerPos[0][1] = BANKER_CARD1_RT;//RT
 	m_ptsBankerPos[0][2] = BANKER_CARD1_LB;//LB
 	m_ptsBankerPos[0][3] = BANKER_CARD1_RB;//RB
-	m_matBankerPerspective[0] = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[0]);
+	m_matBankerPerspective[0] = getPerspectiveTransform (m_ptsCard, m_ptsBankerPos[0]);
 
 	//莊家第二張牌投影位置
 	m_ptsBankerPos[1][0] = BANKER_CARD2_LT;//LT
 	m_ptsBankerPos[1][1] = BANKER_CARD2_RT;//RT
 	m_ptsBankerPos[1][2] = BANKER_CARD2_LB;//LB
 	m_ptsBankerPos[1][3] = BANKER_CARD2_RB;//RB
-	m_matBankerPerspective[1] = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[1]);
+	m_matBankerPerspective[1] = getPerspectiveTransform (m_ptsCard, m_ptsBankerPos[1]);
 
 	//莊家第三張牌投影位置
 	m_ptsBankerPos[2][0] = BANKER_CARD3_LT;//LT
 	m_ptsBankerPos[2][1] = BANKER_CARD3_RT;//RT
 	m_ptsBankerPos[2][2] = BANKER_CARD3_LB;//LB
 	m_ptsBankerPos[2][3] = BANKER_CARD3_RB;//RB
-	m_matBankerPerspective[2] = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[2]);
+	m_matBankerPerspective[2] = getPerspectiveTransform (m_ptsCard, m_ptsBankerPos[2]);
 
 	//莊家第四張牌投影位置
 	m_ptsBankerPos[3][0] = BANKER_CARD4_LT;//LT
 	m_ptsBankerPos[3][1] = BANKER_CARD4_RT;//RT
 	m_ptsBankerPos[3][2] = BANKER_CARD4_LB;//LB
 	m_ptsBankerPos[3][3] = BANKER_CARD4_RB;//RB
-	m_matBankerPerspective[3] = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[3]);
+	m_matBankerPerspective[3] = getPerspectiveTransform (m_ptsCard, m_ptsBankerPos[3]);
 
 	//莊家第五張牌投影位置
 	m_ptsBankerPos[4][0] = BANKER_CARD5_LT;//LT
 	m_ptsBankerPos[4][1] = BANKER_CARD5_RT;//RT
 	m_ptsBankerPos[4][2] = BANKER_CARD5_LB;//LB
 	m_ptsBankerPos[4][3] = BANKER_CARD5_RB;//RB
-	m_matBankerPerspective[4] = getPerspectiveTransform (m_ptsTableTop, m_ptsBankerPos[4]);
+	m_matBankerPerspective[4] = getPerspectiveTransform (m_ptsCard, m_ptsBankerPos[4]);
 
 	//玩家第一張牌投影位置
 	m_ptsPlayerPos[0][0] = PLAYER_CARD1_LT;//LT
 	m_ptsPlayerPos[0][1] = PLAYER_CARD1_RT;//RT
 	m_ptsPlayerPos[0][2] = PLAYER_CARD1_LB;//LB
 	m_ptsPlayerPos[0][3] = PLAYER_CARD1_RB;//RB
-	m_matPlayerPerspective[0] = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[0]);
+	m_matPlayerPerspective[0] = getPerspectiveTransform (m_ptsCard, m_ptsPlayerPos[0]);
 
 	//玩家第二張牌投影位置
 	m_ptsPlayerPos[1][0] = PLAYER_CARD2_LT;//LT
 	m_ptsPlayerPos[1][1] = PLAYER_CARD2_RT;//RT
 	m_ptsPlayerPos[1][2] = PLAYER_CARD2_LB;//LB
 	m_ptsPlayerPos[1][3] = PLAYER_CARD2_RB;//RB
-	m_matPlayerPerspective[1] = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[1]);
+	m_matPlayerPerspective[1] = getPerspectiveTransform (m_ptsCard, m_ptsPlayerPos[1]);
 
 	//玩家第三張牌投影位置
 	m_ptsPlayerPos[2][0] = PLAYER_CARD3_LT;//LT
 	m_ptsPlayerPos[2][1] = PLAYER_CARD3_RT;//RT
 	m_ptsPlayerPos[2][2] = PLAYER_CARD3_LB;//LB
 	m_ptsPlayerPos[2][3] = PLAYER_CARD3_RB;//RB
-	m_matPlayerPerspective[2] = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[2]);
+	m_matPlayerPerspective[2] = getPerspectiveTransform (m_ptsCard, m_ptsPlayerPos[2]);
 
 	//玩家第四張牌投影位置
 	m_ptsPlayerPos[3][0] = PLAYER_CARD4_LT;//LT
 	m_ptsPlayerPos[3][1] = PLAYER_CARD4_RT;//RT
 	m_ptsPlayerPos[3][2] = PLAYER_CARD4_LB;//LB
 	m_ptsPlayerPos[3][3] = PLAYER_CARD4_RB;//RB
-	m_matPlayerPerspective[3] = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[3]);
+	m_matPlayerPerspective[3] = getPerspectiveTransform (m_ptsCard, m_ptsPlayerPos[3]);
 
 	//玩家第五張牌投影位置
 	m_ptsPlayerPos[4][0] = PLAYER_CARD5_LT;//LT
 	m_ptsPlayerPos[4][1] = PLAYER_CARD5_LT;//RT
 	m_ptsPlayerPos[4][2] = PLAYER_CARD5_LB;//LB
 	m_ptsPlayerPos[4][3] = PLAYER_CARD5_RB;//RB
-	m_matPlayerPerspective[4] = getPerspectiveTransform (m_ptsTableTop, m_ptsPlayerPos[4]);
+	m_matPlayerPerspective[4] = getPerspectiveTransform (m_ptsCard, m_ptsPlayerPos[4]);
 }
 
 void  CBlackJackDlg::Drawcard (vector<int>&vecCard, int iCounter[], int &iPoint, int &iPointA, int &A) 

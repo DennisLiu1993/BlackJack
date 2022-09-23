@@ -27,6 +27,8 @@ using namespace std;
 
 #define TABLE_WIDTH 1002
 #define TABLE_HEIGHT 450
+#define CARD_WIDTH 71
+#define CARD_HEIGHT 96
 // CBlackJackDlg 對話方塊
 class CBlackJackDlg : public CDialogEx
 {
@@ -65,7 +67,7 @@ protected:
 	Mat m_matPlayerHitPnt;
 	Mat m_matPlayerHitPntNoBankerPnt;
 
-	Point2f m_ptsTableTop[4];
+	Point2f m_ptsCard[4];
 	Point2f m_ptsPlayerPos[5][4];//五張四個角
 	Point2f m_ptsBankerPos[5][4];//五張四個角
 
