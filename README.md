@@ -1,7 +1,7 @@
 # BlackJack
 Using MFC to create a BlackJack game platform
 
-# What You Can Learn in This Project
+# What Techniques Used in This Project
 1. **double buffer drawing** strategy in MFC to prevent controls or numbers from blinking (see OnPaint ())
 2. usage of **CButtonST** (Image Button with features of **transparent background** and no border) 
 3. OpenCV **perspective tranform** to show slanted cards (see WarpPespective ())
